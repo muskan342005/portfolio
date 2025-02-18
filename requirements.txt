@@ -1,2 +1,1 @@
-Django==4.2.19
-gunicorn
+Django==3.2.10  # or your preferred versiongunicorn
