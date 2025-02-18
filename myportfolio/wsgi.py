@@ -14,5 +14,5 @@ from whitenoise import WhiteNoise
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'myportfolio.settings')
 
 application = get_wsgi_application()
-application = WhiteNoise(application)
-app = application  # This line is important for Vercel
+application = WhiteNoise(application, root='staticfiles')
+app = application
