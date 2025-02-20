@@ -12,8 +12,8 @@
             --bg-color: #f0f4f8;
             --text-color: #333333;
             --accent-color: #3498db;
-            --highlight-color: #f39c12;
-            --secondary-color: #ffffff;
+            --highlight-color:rgb(133, 178, 204);
+            --secondary-color:rgb(255, 255, 255);
         }
 
         * {
@@ -33,52 +33,105 @@
             line-height: 1.6;
         }
 
-        header {
-            background-color: rgba(240, 244, 248, 0.9);
-            padding: 1rem;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            transition: box-shadow 0.3s ease;
-        }
+        /* Header styling */
+header {
+    background-color: rgba(240, 244, 248, 0.9);
+    padding: 1rem;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    transition: box-shadow 0.3s ease;
+}
 
-        header.scrolled {
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
+/* Add shadow when scrolled */
+header.scrolled {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
 
-        nav ul {
-            display: flex;
-            justify-content: flex-end;
-            list-style-type: none;
-        }
+/* Navigation bar */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-        nav ul li {
-            margin-left: 2rem;
-        }
+/* Navigation list */
+nav ul {
+    display: flex;
+    justify-content: flex-end;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
 
-        nav ul li a {
-            color: var(--text-color);
-            text-decoration: none;
-            font-weight: bold;
-            transition: color 0.3s ease;
-            position: relative;
-        }
+nav ul li {
+    margin-left: 2rem;
+}
 
-        nav ul li a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 0;
-            background-color: var(--accent-color);
-            transition: width 0.3s ease;
-        }
+nav ul li a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+    position: relative;
+}
 
-        nav ul li a:hover::after {
-            width: 100%;
-        }
+/* Hover effect */
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: var(--accent-color);
+    transition: width 0.3s ease;
+}
+
+nav ul li a:hover::after {
+    width: 100%;
+}
+
+/* Mobile styles */
+.menu-toggle {
+    display: none; /* Hide button on larger screens */
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+}
+
+/* Hide menu on small screens */
+@media screen and (max-width: 768px) {
+    nav ul {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background-color: rgba(240, 244, 248, 0.9);
+        width: 100%;
+        text-align: center;
+        padding: 1rem 0;
+    }
+
+    .menu-toggle {
+        display: block; /* Show toggle button on small screens */
+    }
+
+    nav ul.show {
+        display: flex; /* Show menu when toggled */
+    }
+
+    nav ul li {
+        margin: 1rem 0;
+    }
+}
+        
 
         section {
             padding: 5rem 2rem;
@@ -791,6 +844,7 @@
 <body>
     <header>
         <nav>
+            <button class="menu-toggle">&#9776;</button>
             <ul>
                 <li><a href="#hero">Home</a></li>
                 <li><a href="#about">About</a></li>
@@ -800,6 +854,7 @@
             </ul>
         </nav>
     </header>
+    
 
     <main>
         <section id="hero">
@@ -833,7 +888,7 @@
             <h2 class="section-title">About Me</h2>
             <div class="about-content">
     <div class="about-text">
-        <p>Hello! I'm Mohammad Burhan, a passionate Python backend developer with a focus on building efficient and scalable web applications. I specialize in creating robust backend solutions using Python and its modern frameworks.</p>
+        <p>Hello! I'm Abdul Rauf, a passionate Python backend developer with a focus on building efficient and scalable web applications. I specialize in creating robust backend solutions using Python and its modern frameworks.</p>
         <p>In my journey as a developer, I've had the opportunity to work on diverse projects that have sharpened my problem-solving skills and deepened my understanding of software architecture. I'm particularly interested in API development, database optimization, and cloud technologies.</p>
         <div class="about-stats reveal">
             <div class="stat-item">
@@ -983,6 +1038,12 @@
     </footer>
 
     <script>
+
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.querySelector('nav ul').classList.toggle('show');
+        });
+        
+        
         // Initialize floating circles
 const circles = document.querySelectorAll('.circle');
 circles.forEach((circle, index) => {
