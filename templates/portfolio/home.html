@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Abdul Rauf - Python Backend Developer</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+    </script>
     <style>
         /* Base styles */
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
@@ -773,18 +775,19 @@
                     <div class="contact-details">
                         <div class="contact-item">
                             <a href="mailto:rauf22750@gmail.com?subject=Hello&body=I%20want%20to%20ask%20something">
-                            <i class="fas fa-envelope"></i>
-                            <span>rauf22750@gmail.com</span>
+                                <i class="fas fa-envelope"></i>
+                                <span>rauf22750@gmail.com</span>
                             </a>
                         </div>
                         <div class="contact-item">
                             <a href="tel:+923019836585">
-                            <i class="fas fa-phone"></i>
-                            <span>+92 (301) 983-6585</span></a>
+                                <i class="fas fa-phone"></i>
+                                <span>+92 (301) 983-6585</span>
+                            </a>
                         </div>
                         <div class="contact-item">
                             <a href="https://www.google.com/maps/@31.431581,74.2699133,16z?entry=ttu&g_ep=EgoyMDI1MDIxOC4wIKXMDSoASAFQAw%3D%3D" target="_blank">
-                            <i class="fas fa-map-marker-alt"></i>
+                                <i class="fas fa-map-marker-alt"></i>
                                 <span>Lahore, Pakistan</span>
                             </a>
                         </div>
@@ -801,21 +804,21 @@
                         </a>
                     </div>
                 </div>
-                <form class="contact-form fade-in">
+        
+                <!-- Contact Form -->
+                <form id="simple-form">
                     <div class="form-group">
-                        <input type="text" id="name" required placeholder=" ">
-                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" required placeholder="Enter Your Name">
                     </div>
                     <div class="form-group">
-                        <input type="email" id="email" required placeholder=" ">
-                        <label for="email">Your Email</label>
+                        <input type="email" id="email" name="email" required placeholder="Enter Your Email">
                     </div>
                     <div class="form-group">
-                        <textarea id="message" required placeholder=" " rows="5"></textarea>
-                        <label for="message">Your Message</label>
+                        <textarea id="message" name="message" required rows="4" placeholder="Enter Your Message"></textarea>
                     </div>
-                    <button type="submit" class="cta-btn">Send Message</button>
+                    <button type="submit" class="cta-btn">Submit</button>
                 </form>
+                
             </div>
         </section>
     </main>
@@ -866,14 +869,6 @@
             }
         });
 
-        // Form submission
-        document.querySelector('.contact-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            // Add your form submission logic here
-            alert('Thank you for your message! I will get back to you soon.');
-            this.reset();
-        });
-
         // Interactive elements
         document.querySelectorAll('.skill-card, .project-card, .tech-item').forEach(card => {
             card.addEventListener('mouseenter', function() {
@@ -890,6 +885,36 @@
             item.style.animationDelay = `${index * 0.3}s`;
             observer.observe(item);
         });
+        
+    </script>
+
+    <script >
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("simple-form").addEventListener("submit", function (event) {
+                event.preventDefault(); // Prevent default form submission
+        
+                // Get form values
+                const name = document.getElementById("name").value;
+                const email = document.getElementById("email").value;
+                const message = document.getElementById("message").value;
+        
+                // Send email using Email.js
+                emailjs.send("service_4nuugkj", "template_ffznf8m", {
+                    from_name: name,
+                    from_email: email,
+                    message: message,
+                }, "sAm-6BuHle6Hl90hf")
+                .then(function(response) {
+                    console.log("Email sent successfully:", response);
+                    alert("Email sent successfully!");
+                    document.getElementById("simple-form").reset();
+                }, function(error) {
+                    console.error("Email failed to send:", error);
+                    alert("Failed to send email. Please try again.");
+                });
+            });
+        });
+        
     </script>
 </body>
 </html>
