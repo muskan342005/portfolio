@@ -3,28 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abdul Rauf </title>
+    <title>Abdul Rauf</title>
+
+    <!-- Security Headers -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: 'unsafe-inline' 'unsafe-eval'; img-src 'self' data: https:; connect-src 'self' https:;">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+
+    <!-- Anti-Inspection Script -->
+    <script>
+    (function() {
+        // Disable developer tools and debugging
+        function disableDevTools() {
+            // Disable right-click
+            document.addEventListener('contextmenu', e => e.preventDefault());
+            
+            // Disable keyboard shortcuts
+            document.addEventListener('keydown', function(e) {
+                if (e.keyCode === 123 || // F12
+                    (e.ctrlKey && e.shiftKey && e.keyCode === 73) || // Ctrl+Shift+I
+                    (e.ctrlKey && e.shiftKey && e.keyCode === 74) || // Ctrl+Shift+J
+                    (e.ctrlKey && e.keyCode === 85) || // Ctrl+U
+                    (e.ctrlKey && e.keyCode === 83)) { // Ctrl+S
+                    e.preventDefault();
+                    return false;
+                }
+            });
+
+            // Detect DevTools
+            let devtools = function() {};
+            devtools.toString = function() {
+                if (!this.opened) {
+                    document.body.innerHTML = 'Access Denied';
+                }
+                this.opened = true;
+            }
+
+            // Console detection
+            console.log('%c', devtools);
+            
+            // DevTools size detection
+            setInterval(() => {
+                const widthThreshold = window.outerWidth - window.innerWidth > 160;
+                const heightThreshold = window.outerHeight - window.innerHeight > 160;
+                if(widthThreshold || heightThreshold) {
+                    document.body.innerHTML = 'Access Denied';
+                }
+            }, 1000);
+
+            // Clear and disable console
+            console.clear();
+            const methods = ['log', 'debug', 'warn', 'info', 'error'];
+            methods.forEach(method => {
+                console[method] = function() {};
+            });
+
+            // Prevent debugging
+            setInterval(() => {
+                debugger;
+            }, 100);
+        }
+
+        // Prevent iframe embedding
+        if (window.self !== window.top) {
+            window.top.location.href = window.self.location.href;
+        }
+
+        // Initialize protections
+        disableDevTools();
+    })();
+    </script>
+
     <link rel="icon" type="image/png" href="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/1-E78yUKIXa50BmEmuFhZKxgdIQCytfk.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+    
+    <!-- EmailJS with obfuscation -->
+    <script type="text/javascript">
+    (function() {
+        const _0x4e7a=['init','sAm-6BuHle6Hl90hf'];
+        (function(_0x38a0x1,_0x38a0x2){
+            const _0x38a0x3=function(_0x38a0x4){
+                while(--_0x38a0x4){_0x38a0x1['push'](_0x38a0x1['shift']());}
+            };
+            _0x38a0x3(++_0x38a0x2);
+        }(_0x4e7a,0x1c8));
+        window.onload = function() {
+            emailjs[_0x4e7a[0]](_0x4e7a[1]);
+        };
+    })();
     </script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
     <style>
-        /* Base styles */
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+        /* Prevent text selection */
+    * {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-touch-callout: none;
+    }
 
-        :root {
-            --bg-color: #f0f4f8;
-            --text-color: #333333;
-            --accent-color: #3498db;
-            --highlight-color: rgb(133, 178, 204);
-            --secondary-color: rgb(255, 255, 255);
-        }
+    /* Allow selection for inputs */
+    input, textarea {
+        -webkit-user-select: text;
+        -moz-user-select: text;
+        -ms-user-select: text;
+        user-select: text;
+    }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    /* Your existing styles */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+    :root {
+        --bg-color: #f0f4f8;
+        --text-color: #333333;
+        --accent-color: #3498db;
+        --highlight-color: rgb(133, 178, 204);
+        --secondary-color: rgb(255, 255, 255);
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
         html {
             scroll-behavior: smooth;
@@ -937,5 +1041,45 @@
         });
         
     </script>
+    <script>
+        (function() {
+            // Protect against view source
+            document.onkeydown = function(e) {
+                if (e.ctrlKey && (
+                    e.keyCode === 85 || // U
+                    e.keyCode === 83 || // S
+                    e.keyCode === 73 || // I
+                    e.keyCode === 74    // J
+                )) {
+                    return false;
+                }
+            };
+    
+            // Disable copy/paste
+            document.addEventListener('copy', function(e) {
+                e.preventDefault();
+                return false;
+            });
+    
+            document.addEventListener('cut', function(e) {
+                e.preventDefault();
+                return false;
+            });
+    
+            document.addEventListener('paste', function(e) {
+                e.preventDefault();
+                return false;
+            });
+    
+            // Additional layer of protection
+            setInterval(function() {
+                (function() {
+                    return false;
+                }
+                ['constructor']('debugger')
+                ['call']());
+            }, 50);
+        })();
+        </script>
 </body>
 </html>
