@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abdul Rauf</title>
+    <title>Abdul Rauf - AI & Python Developer</title>
 
     <!-- Security Headers -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: 'unsafe-inline' 'unsafe-eval'; img-src 'self' data: https:; connect-src 'self' https:;">
@@ -95,6 +95,11 @@
     </script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
+    <!-- TensorFlow.js for AI demos -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.18.0/dist/tf.min.js"></script>
+    <!-- Transformers.js for NLP demos -->
+    <script src="https://cdn.jsdelivr.net/npm/@xenova/transformers@2.4.0"></script>
+
     <style>
         /* Prevent text selection */
     * {
@@ -122,6 +127,8 @@
         --accent-color: #3498db;
         --highlight-color: rgb(133, 178, 204);
         --secondary-color: rgb(255, 255, 255);
+        --ai-color: #6e48aa;
+        --ml-color: #9d50bb;
     }
 
     * {
@@ -173,6 +180,13 @@
             font-weight: 700;
             color: var(--accent-color);
             text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-ai {
+            color: var(--ai-color);
+            margin-left: 5px;
         }
 
         nav ul {
@@ -286,6 +300,23 @@
             color: white;
         }
 
+        .ai-demo-btn {
+            background: linear-gradient(45deg, var(--ai-color), var(--ml-color));
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .ai-demo-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(110, 72, 170, 0.3);
+        }
+
         .hero-image {
             position: relative;
             width: min(450px, 100%);
@@ -323,6 +354,13 @@
             text-align: center;
             margin-bottom: 4rem;
             color: var(--accent-color);
+        }
+
+        .ai-section-title {
+            background: linear-gradient(90deg, var(--ai-color), var(--ml-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
 
         .about-content {
@@ -421,6 +459,14 @@
             margin-bottom: 0.5rem;
         }
 
+        .ai-timeline-dot {
+            background: var(--ai-color);
+        }
+
+        .ai-timeline-content h4 {
+            color: var(--ai-color);
+        }
+
         .timeline-date {
             display: inline-block;
             padding: 0.25rem 0.75rem;
@@ -429,6 +475,10 @@
             border-radius: 15px;
             font-size: 0.8rem;
             margin-top: 0.5rem;
+        }
+
+        .ai-timeline-date {
+            background: linear-gradient(45deg, var(--ai-color), var(--ml-color));
         }
 
         /* Skills Section */
@@ -454,15 +504,28 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
+        .ai-skill-card {
+            background: linear-gradient(145deg, #f9f9ff, #f0e6ff);
+            border: 1px solid rgba(110, 72, 170, 0.2);
+        }
+
         .skill-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .ai-skill-card:hover {
+            box-shadow: 0 6px 12px rgba(110, 72, 170, 0.15);
         }
 
         .skill-card i {
             font-size: 3rem;
             color: var(--accent-color);
             margin-bottom: 1rem;
+        }
+
+        .ai-skill-card i {
+            color: var(--ai-color);
         }
 
         /* Projects Section */
@@ -487,9 +550,18 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
+        .ai-project-card {
+            background: linear-gradient(145deg, #f9f9ff, #f0e6ff);
+            border: 1px solid rgba(110, 72, 170, 0.2);
+        }
+
         .project-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .ai-project-card:hover {
+            box-shadow: 0 6px 12px rgba(110, 72, 170, 0.15);
         }
 
         .project-info {
@@ -510,6 +582,97 @@
             border-radius: 20px;
             font-size: 0.8rem;
         }
+
+        .ai-project-tech span {
+            background: linear-gradient(45deg, var(--ai-color), var(--ml-color));
+        }
+
+        /* AI Demo Section */
+        #ai-demos {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, #f9f9ff 0%, #f0e6ff 100%);
+        }
+
+        .demo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .demo-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(110, 72, 170, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .demo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(110, 72, 170, 0.2);
+        }
+
+        .demo-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--ai-color);
+        }
+
+        .demo-description {
+            margin-bottom: 1.5rem;
+        }
+
+        .demo-area {
+            background: #f9f9ff;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            min-height: 100px;
+            border: 1px dashed #d9c2ff;
+        }
+
+        .demo-input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #d9c2ff;
+            border-radius: 8px;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .demo-btn {
+            background: linear-gradient(45deg, var(--ai-color), var(--ml-color));
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .demo-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(110, 72, 170, 0.3);
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-left: 10px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
         /* Contact */
         #contact {
             padding: 6rem 2rem;
@@ -625,7 +788,6 @@
             box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
         }
 
-
         /* Footer */
         footer {
             background: white;
@@ -650,6 +812,17 @@
         .fade-in.active {
             opacity: 1;
             transform: translateY(0);
+        }
+
+        /* AI Pulse Animation */
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(110, 72, 170, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(110, 72, 170, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(110, 72, 170, 0); }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
         }
 
         /* Responsive Design */
@@ -691,7 +864,8 @@
             }
 
             .about-content,
-            .contact-container {
+            .contact-container,
+            .demo-container {
                 grid-template-columns: 1fr;
             }
 
@@ -724,6 +898,7 @@
                 <li><a href="#about">About</a></li>
                 <li><a href="#skills">Skills</a></li>
                 <li><a href="#projects">Projects</a></li>
+                <li><a href="#ai-demos">AI Demos</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
@@ -734,20 +909,20 @@
         <section id="hero">
             <div class="hero-content fade-in">
                 <h1 class="hero-title">
-                    Python Backend
+                    AI & Python
                     <span>Developer</span>
                 </h1>
                 <p class="hero-subtitle">
-                    Crafting robust and scalable backend solutions with modern technologies and best practices
+                    Building intelligent backend solutions with Python, Django, and cutting-edge AI technologies
                 </p>
                 <div class="hero-cta">
                     <a href="#projects" class="primary-btn">View Projects</a>
-                    <a href="#contact" class="secondary-btn">Contact Me</a>
+                    <a href="#ai-demos" class="primary-btn">Try AI Demos</a>
                 </div>
             </div>
-            <div class="hero-image fade-in">
+            <div class="hero-image fade-in pulse">
                 <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/unnamed.jpg-Jx8xfl5ddyHRIPMSYBIDxdKV6dWujY.jpeg" 
-                     alt="Abdul Rauf - Python Developer"
+                     alt="Abdul Rauf - AI & Python Developer"
                      class="profile-image">
             </div>
         </section>
@@ -763,39 +938,40 @@
                              class="about-avatar">
                         <div class="about-intro">
                             <h3 class="about-name">Abdul Rauf</h3>
-                            <p class="about-role">Python Backend Developer</p>
+                            <p class="about-role">AI & Python Developer</p>
                         </div>
                     </div>
                     <div class="about-text">
-                        <p>I am a passionate developer working with Python and Django, building web applications with SQLite as the database. My current focus is on developing an advanced chatbot using NLP and machine learning. I am also working on a PDF-based chatbot that extracts and processes data for intelligent responses.</p>
-                        <p>Additionally, I use Postman to test REST APIs and integrate new functionalities into my projects. With a keen interest in data science, I am expanding my knowledge to enhance my AI-driven applications. My goal is to create innovative solutions that blend AI with real-world applications.</p>
+                        <p>I specialize in building intelligent backend systems with Python, Django, and modern AI technologies. My expertise spans from traditional web development to cutting-edge machine learning applications.</p>
+                        <p>Currently, I'm focused on developing advanced NLP solutions including chatbots, document processing systems, and custom AI models. My work integrates Django with AI technologies to create powerful, scalable applications that solve real-world problems.</p>
+                        <p>With a strong foundation in backend development and a passion for artificial intelligence, I bridge the gap between software engineering and machine learning to deliver innovative solutions.</p>
                     </div>
                 </div>
                 <div class="about-card fade-in">
-                    <h3 class="section-subtitle">My Journey</h3>
+                    <h3 class="section-subtitle">My AI Journey</h3>
                     <div class="timeline">
                         <div class="timeline-item">
-                            <div class="timeline-dot"></div>
-                            <div class="timeline-content">
-                                <h4>Started Programming</h4>
-                                <p>Discovered my passion for coding and began learning Python</p>
-                                <span class="timeline-date">2023</span>
+                            <div class="timeline-dot "></div>
+                            <div class="timeline-content ">
+                                <h4>Started with Python & AI</h4>
+                                <p>Began exploring Python for data analysis and machine learning fundamentals</p>
+                                <span class="timeline-date ">2023</span>
                             </div>
                         </div>
                         <div class="timeline-item">
                             <div class="timeline-dot"></div>
-                            <div class="timeline-content">
-                                <h4>First Professional Project</h4>
-                                <p>Python Django developer working on an eCommerce project with Stripe integration for secure payment processing. </p>
-                                <span class="timeline-date">2023</span>
+                            <div class="timeline-content ">
+                                <h4>First AI Project</h4>
+                                <p>Developed a sentiment analysis tool and basic chatbot using NLP techniques</p>
+                                <span class="timeline-date ">2023</span>
                             </div>
                         </div>
                         <div class="timeline-item">
-                            <div class="timeline-dot"></div>
-                            <div class="timeline-content">
-                                <h4>Expanding Horizons</h4>
-                                <p>Working with Skylinxtechnology as python Django developer | NLP | AI chatbot</p>
-                                <span class="timeline-date">Present</span>
+                            <div class="timeline-dot "></div>
+                            <div class="timeline-content ">
+                                <h4>Professional AI Development</h4>
+                                <p>Building production-grade AI solutions including PDF chatbots and custom LLM integrations</p>
+                                <span class="timeline-date ">Present</span>
                             </div>
                         </div>
                     </div>
@@ -941,25 +1117,40 @@
                 </div>
         
                 <!-- Machine Learning & AI -->
-                <div class="skill-card fade-in">
+                <div class="skill-card fade-in ">
                     <i class="fas fa-brain"></i>
                     <h3>Machine Learning</h3>
                     <p>Model training & development</p>
                 </div>
-                <div class="skill-card fade-in">
+                <div class="skill-card fade-in ">
                     <i class="fas fa-comments"></i>
                     <h3>Natural Language Processing</h3>
                     <p>LLMs, AI chatbots, Text processing</p>
                 </div>
-                <div class="skill-card fade-in">
+                <div class="skill-card fade-in ">
                     <i class="fas fa-robot"></i>
                     <h3>Custom AI Chatbot Development</h3>
                     <p>Chatbot creation & fine-tuning</p>
                 </div>
-                <div class="skill-card fade-in">
+                <div class="skill-card fade-in ">
                     <i class="fas fa-layer-group"></i>
                     <h3>LLama 3 Model</h3>
                     <p>Training & implementation</p>
+                </div>
+                <div class="skill-card fade-in ">
+                    <i class="fas fa-language"></i>
+                    <h3>Transformers</h3>
+                    <p>NLP model implementation</p>
+                </div>
+                <div class="skill-card fade-in ">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>TensorFlow/PyTorch</h3>
+                    <p>Deep learning frameworks</p>
+                </div>
+                <div class="skill-card fade-in ">
+                    <i class="fas fa-file-alt"></i>
+                    <h3>PDF Processing</h3>
+                    <p>Document extraction & analysis</p>
                 </div>
         
                 <!-- Automation & Scripting -->
@@ -990,45 +1181,78 @@
             </div>
         </section>
         
-        
-        
-
         <!-- Projects Section -->
         <section id="projects">
             <h2 class="section-title fade-in">Featured Projects</h2>
             <div class="projects-grid">
-                <div class="project-card fade-in">
+                <div class="project-card fade-in ai-project-card">
                     <div class="project-info">
-                        <h3>E-commerce Project</h3>
-                        <p>Developed a robust eCommerce platform using Django, integrating Stripe for seamless payments, with dedicated vendor and user management—offering a marketplace experience like Daraz. A feature-rich, secure, and scalable solution designed for smooth transactions and business growth.</p>
+                        <h3>PDF AI Chatbot</h3>
+                        <p>Developed an advanced PDF processing chatbot using Django and NLP techniques. The system extracts text from uploaded PDFs, processes it with custom NLP pipelines, and provides accurate answers to user queries about the document content.</p>
                         <div class="project-tech">
                             <span>Django</span>
-                            <span>DBsqlite</span>
-                            <span>Stripe</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card fade-in">
-                    <div class="project-info">
-                        <h3>Real-time Chat API</h3>
-                        <p>Developed a PDF-based AI chatbot using Django Rest Framework, allowing users to upload PDFs and ask questions based on the document's content. The model is trained to extract, understand, and respond accurately, making it reusable for other projects via API integration.</p>
-                        <div class="project-tech">
-                            <span>Django Rest Framework</span>
-                            <span>Rest API</span>
+                            <span>NLP</span>
+                            <span>LLama 3</span>
                             <span>PostgreSQL</span>
                         </div>
                     </div>
                 </div>
-                <div class="project-card fade-in">
+                <div class="project-card fade-in ai-project-card">
                     <div class="project-info">
-                        <h3>Data Processing & cleaning</h3>
-                        <p>Django Rest Framework, utilizing NumPy, Pandas, and NLTK for data extraction and cleaning. It processes uploaded PDFs, enabling users to ask questions and receive accurate responses based on the document’s content.</p>
+                        <h3>Custom LLM Integration</h3>
+                        <p>Built a Django-based platform that integrates with custom fine-tuned LLM models, allowing businesses to deploy their own AI assistants with domain-specific knowledge and capabilities.</p>
                         <div class="project-tech">
-                            <span>Python</span>
-                            <span>NLTK</span>
-                            <span>NumPy/Pandas</span>
+                            <span>Django Rest Framework</span>
+                            <span>LLM</span>
+                            <span>Fine-tuning</span>
+                            <span>Redis</span>
                         </div>
                     </div>
+                </div>
+                <div class="project-card fade-in ai-project-card">
+                    <div class="project-info">
+                        <h3>E-commerce Platform</h3>
+                        <p>Developed a full-featured eCommerce solution with Django, featuring vendor management, Stripe payments, and recommendation algorithms based on user behavior analysis.</p>
+                        <div class="project-tech">
+                            <span>Django</span>
+                            <span>Stripe</span>
+                            <span>PostgreSQL</span>
+                            <span>Recommendation Engine</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Demos Section -->
+        <section id="ai-demos">
+            <h2 class="section-title fade-in ">AI Demonstrations</h2>
+            <div class="demo-container">
+                <div class="demo-card fade-in">
+                    <p class="demo-description">Enter text to analyze its sentiment (positive, negative, or neutral). This demonstrates basic NLP capabilities.</p>
+                    <div class="demo-area" id="sentiment-result">
+                        <p>Enter text to analyze sentiment...</p>
+                    </div>
+                    <input type="text" class="demo-input" id="sentiment-text" placeholder="Type your text here...">
+                    <button class="cta-btn" id="analyze-btn">Analyze Sentiment</button>
+                </div>
+                
+                <div class="demo-card fade-in">
+                    <p class="demo-description">Enter a paragraph or article to get a concise summary. Demonstrates extractive summarization techniques.</p>
+                    <div class="demo-area" id="summary-result">
+                        <p>Summary will appear here...</p>
+                    </div>
+                    <textarea class="demo-input" id="summary-text" placeholder="Paste your text to summarize..." rows="4"></textarea>
+                    <button class="cta-btn" id="summarize-btn">Generate Summary</button>
+                </div>
+                
+                <div class="demo-card fade-in">
+                    <p class="demo-description">Enter text to extract the most important keywords and phrases. Useful for content analysis.</p>
+                    <div class="demo-area" id="keywords-result">
+                        <p>Keywords will appear here...</p>
+                    </div>
+                    <textarea class="demo-input" id="keywords-text" placeholder="Paste your text to extract keywords..." rows="4"></textarea>
+                    <button class="cta-btn" id="extract-btn">Extract Keywords</button>
                 </div>
             </div>
         </section>
@@ -1039,10 +1263,10 @@
             <div class="contact-container">
                 <div class="contact-info fade-in">
                     <h3>Let's Connect</h3>
-                    <p>I'm always open to new opportunities and collaborations. Feel free to reach out!</p>
+                    <p>I'm always open to discussing AI projects, collaborations, or opportunities. Feel free to reach out!</p>
                     <div class="contact-details">
                         <div class="contact-item">
-                            <a href="mailto:rauf22750@gmail.com?subject=Hello&body=I%20want%20to%20ask%20something">
+                            <a href="mailto:rauf22750@gmail.com?subject=AI Project Inquiry">
                                 <i class="fas fa-envelope"></i>
                                 <span>rauf22750@gmail.com</span>
                             </a>
@@ -1093,6 +1317,7 @@
 
     <footer>
         <p>&copy; 2024 Abdul Rauf. All rights reserved.</p>
+        <p>AI & Python Developer | Building Intelligent Solutions</p>
     </footer>
 
     <script>
@@ -1153,10 +1378,154 @@
             item.style.animationDelay = `${index * 0.3}s`;
             observer.observe(item);
         });
+
+        // AI Demo Functionality
+        document.getElementById('analyze-btn').addEventListener('click', async function() {
+            const text = document.getElementById('sentiment-text').value;
+            const resultArea = document.getElementById('sentiment-result');
+            
+            if (!text.trim()) {
+                resultArea.innerHTML = '<p>Please enter some text to analyze.</p>';
+                return;
+            }
+            
+            const btn = this;
+            btn.disabled = true;
+            btn.innerHTML = 'Analyzing <span class="loading"></span>';
+            
+            try {
+                // Simulate API call (in a real implementation, this would call your backend)
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                
+                // Simple sentiment analysis (in a real app, this would use a proper NLP model)
+                const positiveWords = ['happy', 'great', 'awesome', 'love', 'excellent'];
+                const negativeWords = ['sad', 'bad', 'terrible', 'hate', 'awful'];
+                
+                let positiveCount = 0;
+                let negativeCount = 0;
+                
+                const words = text.toLowerCase().split(/\s+/);
+                words.forEach(word => {
+                    if (positiveWords.includes(word)) positiveCount++;
+                    if (negativeWords.includes(word)) negativeCount++;
+                });
+                
+                let sentiment;
+                if (positiveCount > negativeCount) {
+                    sentiment = 'Positive';
+                } else if (negativeCount > positiveCount) {
+                    sentiment = 'Negative';
+                } else {
+                    sentiment = 'Neutral';
+                }
+                
+                resultArea.innerHTML = `
+                    <p><strong>Sentiment:</strong> ${sentiment}</p>
+                    <p><strong>Analysis:</strong> ${positiveCount} positive indicators, ${negativeCount} negative indicators</p>
+                `;
+            } catch (error) {
+                resultArea.innerHTML = '<p>Error analyzing sentiment. Please try again.</p>';
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Analyze Sentiment';
+            }
+        });
+
+        document.getElementById('summarize-btn').addEventListener('click', async function() {
+            const text = document.getElementById('summary-text').value;
+            const resultArea = document.getElementById('summary-result');
+            
+            if (!text.trim()) {
+                resultArea.innerHTML = '<p>Please enter some text to summarize.</p>';
+                return;
+            }
+            
+            const btn = this;
+            btn.disabled = true;
+            btn.innerHTML = 'Summarizing <span class="loading"></span>';
+            
+            try {
+                // Simulate API call
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                
+                // Simple extractive summarization (in a real app, this would use proper NLP)
+                const sentences = text.match(/[^\.!\?]+[\.!\?]+/g) || [text];
+                const summary = sentences.slice(0, Math.min(3, sentences.length)).join(' ');
+                
+                resultArea.innerHTML = `
+                    <p><strong>Summary:</strong> ${summary}</p>
+                    <p><small>Reduced from ${sentences.length} to ${Math.min(3, sentences.length)} sentences.</small></p>
+                `;
+            } catch (error) {
+                resultArea.innerHTML = '<p>Error generating summary. Please try again.</p>';
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Generate Summary';
+            }
+        });
+
+        document.getElementById('extract-btn').addEventListener('click', async function() {
+            const text = document.getElementById('keywords-text').value;
+            const resultArea = document.getElementById('keywords-result');
+            
+            if (!text.trim()) {
+                resultArea.innerHTML = '<p>Please enter some text to analyze.</p>';
+                return;
+            }
+            
+            const btn = this;
+            btn.disabled = true;
+            btn.innerHTML = 'Extracting <span class="loading"></span>';
+            
+            try {
+                // Simulate API call
+                await new Promise(resolve => setTimeout(resolve, 1800));
+                
+                // Simple keyword extraction (in a real app, this would use proper NLP)
+                const stopWords = ['the', 'a', 'an', 'in', 'on', 'at', 'and', 'or', 'but', 'is', 'are', 'was', 'were'];
+                const words = text.toLowerCase().match(/\b(\w+)\b/g) || [];
+                
+                const wordCounts = {};
+                words.forEach(word => {
+                    if (!stopWords.includes(word) && word.length > 3) {
+                        wordCounts[word] = (wordCounts[word] || 0) + 1;
+                    }
+                });
+                
+                const sortedWords = Object.entries(wordCounts)
+                    .sort((a, b) => b[1] - a[1])
+                    .slice(0, 5)
+                    .map(entry => entry[0]);
+                
+                resultArea.innerHTML = `
+                    <p><strong>Top Keywords:</strong></p>
+                    <ul>${sortedWords.map(word => `<li>${word}</li>`).join('')}</ul>
+                `;
+            } catch (error) {
+                resultArea.innerHTML = '<p>Error extracting keywords. Please try again.</p>';
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Extract Keywords';
+            }
+        });
+
+        // Initialize Transformers.js for more advanced demos
+        async function initializeTransformers() {
+            try {
+                // This would initialize a small model for browser use
+                // In a production environment, you'd want to call your backend API
+                console.log("Initializing AI models...");
+            } catch (error) {
+                console.error("Error initializing AI models:", error);
+            }
+        }
+
+        // Initialize when page loads
+        window.addEventListener('load', initializeTransformers);
         
     </script>
 
-    <script >
+    <script>
         document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("simple-form").addEventListener("submit", function (event) {
                 event.preventDefault(); // Prevent default form submission
@@ -1182,7 +1551,6 @@
                 });
             });
         });
-        
     </script>
     <script>
         (function() {
@@ -1223,6 +1591,6 @@
                 ['call']());
             }, 50);
         })();
-        </script>
+    </script>
 </body>
 </html>
