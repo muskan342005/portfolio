@@ -11,6 +11,9 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    
     <style>
         :root {
             --primary-color: #e11d48;
@@ -760,6 +763,42 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* Form status messages */
+        #form-status {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+        }
+
+        #form-status.success {
+            background-color: #d1fae5;
+            color: #065f46;
+            border: 1px solid #10b981;
+        }
+
+        #form-status.error {
+            background-color: #fee2e2;
+            color: #b91c1c;
+            border: 1px solid #ef4444;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
@@ -787,7 +826,7 @@
         <div class="container">
             <div class="hero-content">
                 <div class="hero-text">
-                    <h1>Hi, I'm <span> Muskan Ashraf</span></h1>
+                    <h1>Hi, I'm <span>Muskan Ashraf</span></h1>
                     <h2 id="typingText"></h2>
                     <p>A passionate IT student with expertise in data analysis, programming, and machine learning. Currently pursuing a Bachelor's degree in Information Technology at MAO College, Lahore.</p>
                     <div class="hero-btns">
@@ -1107,14 +1146,12 @@
                             </div>
                         </div>
                         
-                        
-                        
                         <div class="contact-item">
                             <div class="contact-icon">
                                 <i class="fas fa-language"></i>
                             </div>
                             <div class="contact-text">
-                                <h4>Languages - 1</h4>
+                                <h4>Languages</h4>
                                 <p>Punjabi (Native), English (Intermediate), Urdu (Basic)</p>
                             </div>
                         </div>
@@ -1136,7 +1173,7 @@
                 
                 <div class="contact-form">
                     <h3>Send Me a Message</h3>
-                    <form action="#" method="POST">
+                    <form id="contact-form">
                         <div class="form-group">
                             <label for="name">Your Name</label>
                             <input type="text" id="name" name="name" class="form-control" required>
@@ -1148,18 +1185,15 @@
                         </div>
                         
                         <div class="form-group">
-                            <label for="subject">Subject</label>
-                            <input type="text" id="subject" name="subject" class="form-control" required>
-                        </div>
-                        
-                        <div class="form-group">
                             <label for="message">Message</label>
                             <textarea id="message" name="message" class="form-control" required></textarea>
                         </div>
                         
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" class="btn btn-primary" id="submit-btn">
                             <i class="fas fa-paper-plane"></i> Send Message
                         </button>
+
+                        <div id="form-status"></div>
                     </form>
                 </div>
             </div>
@@ -1221,7 +1255,12 @@
             }
         }
         
-        window.onload = typeWriter;
+        window.onload = function() {
+            typeWriter();
+            
+            // Initialize EmailJS
+            emailjs.init("R1Mrhgxq9HnMidsw1");
+        };
         
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -1236,6 +1275,65 @@
                 navLinks.classList.remove('active');
                 mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
             });
+        });
+        
+        // Contact Form Submission with EmailJS
+        document.getElementById('contact-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const submitBtn = document.getElementById('submit-btn');
+            const formStatus = document.getElementById('form-status');
+            
+            // Change button text and disable it
+            const originalBtnText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<span class="loading-spinner"></span> Sending...';
+            submitBtn.disabled = true;
+            
+            // Get form data
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            
+            // Prepare template parameters
+            const templateParams = {
+                from_name: name,
+                from_email: email,
+                message: message
+            };
+            
+            // Send email using EmailJS
+            emailjs.send('service_kf8svrj', 'template_blxqogs', templateParams)
+                .then(function(response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                    
+                    // Show success message
+                    formStatus.className = 'success';
+                    formStatus.textContent = 'Your message has been sent successfully!';
+                    formStatus.style.display = 'block';
+                    
+                    // Reset form
+                    document.getElementById('contact-form').reset();
+                    
+                    // Reset button
+                    submitBtn.innerHTML = originalBtnText;
+                    submitBtn.disabled = false;
+                    
+                    // Hide success message after 5 seconds
+                    setTimeout(() => {
+                        formStatus.style.display = 'none';
+                    }, 5000);
+                }, function(error) {
+                    console.error('FAILED...', error);
+                    
+                    // Show error message
+                    formStatus.className = 'error';
+                    formStatus.textContent = 'Failed to send message. Please try again later.';
+                    formStatus.style.display = 'block';
+                    
+                    // Reset button
+                    submitBtn.innerHTML = originalBtnText;
+                    submitBtn.disabled = false;
+                });
         });
     </script>
 </body>
